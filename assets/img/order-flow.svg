@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 170" width="100%" role="img" aria-label="Auftragsprozess">
+  <style>
+    .st{fill:#FBF3E4;stroke:#D99322;stroke-width:1.5}
+    .lb{font:600 13px system-ui,sans-serif;fill:#1F1F24;text-anchor:middle}
+    .sub{font:11px system-ui,sans-serif;fill:#8a8378;text-anchor:middle}
+    .arr{stroke:#D99322;stroke-width:2.5;fill:none;marker-end:url(#b)}
+  </style>
+  <defs><marker id="b" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#D99322"/></marker></defs>
+  <g>
+    <rect class="st" x="10"  y="55" width="120" height="56" rx="10"/><text class="lb" x="70"  y="80">Auftrag</text><text class="sub" x="70" y="98">DRAFT→CONFIRMED</text>
+    <rect class="st" x="165" y="55" width="120" height="56" rx="10"/><text class="lb" x="225" y="80">Reservierung</text><text class="sub" x="225" y="98">FIFO/FEFO · ALLOCATED</text>
+    <rect class="st" x="320" y="55" width="120" height="56" rx="10"/><text class="lb" x="380" y="80">Kommission.</text><text class="sub" x="380" y="98">Pickliste · PICKED</text>
+    <rect class="st" x="475" y="55" width="120" height="56" rx="10"/><text class="lb" x="535" y="80">Verpackung</text><text class="sub" x="535" y="98">Packplatz · READY</text>
+    <rect class="st" x="630" y="55" width="120" height="56" rx="10"/><text class="lb" x="690" y="80">Versand</text><text class="sub" x="690" y="98">Label · SHIPPED</text>
+    <rect class="st" x="785" y="55" width="105" height="56" rx="10"/><text class="lb" x="837" y="80">Retoure</text><text class="sub" x="837" y="98">optional</text>
+    <path class="arr" d="M130 83 H163"/><path class="arr" d="M285 83 H318"/><path class="arr" d="M440 83 H473"/><path class="arr" d="M595 83 H628"/><path class="arr" d="M750 83 H783"/>
+  </g>
+</svg>

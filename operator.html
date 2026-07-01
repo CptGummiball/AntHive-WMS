@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Operative Anwender · AntHive</title>
+  <link rel="icon" href="assets/img/logo.svg">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="operator">
+  <header class="top">
+    <button class="hamb" id="hamb" aria-label="Menü">☰</button>
+    <a class="brand" href="index.html"><img src="assets/img/logo.svg" width="26" height="26" alt=""> Ant<b>Hive</b> · WMS-Doku</a>
+    <span class="spacer"></span>
+    <input class="search" id="search" placeholder="Navigation filtern…" aria-label="Suche">
+  </header>
+  <div class="layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main>
+      <h1>Operative WMS-Anwender</h1>
+      <p class="lead">Für das Lagerpersonal: Schritt-für-Schritt-Anleitungen der täglichen Prozesse an Desktop,
+        Tablet-Packplatz und Handscanner (MDE).</p>
+      <figure><img src="assets/img/order-flow.svg" alt="Auftragsprozess"><figcaption>Der typische Warenfluss vom Auftrag bis zum Versand.</figcaption></figure>
+
+      <h2 id="op-inbound">Wareneingang</h2>
+      <ol class="steps">
+        <li>Avisierte Lieferung öffnen oder einen freien Wareneingang starten.</li>
+        <li>Artikel und Menge je Position erfassen (bei Charge/MHD/Serie werden die Zusatzangaben abgefragt).</li>
+        <li>Buchung erzeugt eine RECEIPT-Bewegung; die Ware liegt zunächst im Wareneingangsbereich.</li>
+      </ol>
+
+      <h2 id="op-putaway">Einlagerung</h2>
+      <p>Aus dem Wareneingang werden Einlagerungsaufgaben erzeugt (RECEIVING → Zielplatz). Die Bestätigung bucht
+        eine TRANSFER-Bewegung; die Dock-to-Stock-Zeit fließt in die Kennzahlen ein.</p>
+
+      <h2 id="op-picking">Kommissionierung</h2>
+      <p>Picklisten haben eine feste <b>Kommissionierart</b> (Einzel, Batch, Multi-Batch, Multi-Tray, Wave, Zone)
+        und eine Quelle (intern/extern). Der Scanner passt die Ansicht je Art an.</p>
+      <ol class="steps">
+        <li>Am Scanner die Pickliste wählen (Typ-Badge und Auftragsanzahl sind sichtbar).</li>
+        <li>Lagerplatz scannen – gleiche Plätze werden gebündelt und nur einmal bestätigt.</li>
+        <li>Artikel scannen (das Artikelbild hilft bei der Identifikation); Menge bestätigen.</li>
+        <li>Bei trayfreien Batch-Listen: <b>Sammelentnahme</b> – gleicher Artikel/Platz für mehrere Aufträge in einem Zug.</li>
+        <li>Bei Multi-Tray: zuerst das Tray scannen (Auftrag binden), dann Artikel.</li>
+      </ol>
+      <div class="callout">Aufgaben können über die <b>Arbeitszuteilung</b> Mitarbeitern zugewiesen oder von diesen
+        selbst übernommen werden (system-directed work).</div>
+
+      <h2 id="op-transfer">Umlagerung</h2>
+      <figure><img src="assets/img/transfer-rule.svg" alt="Umlagerungsregel"><figcaption>Standardrichtung Nachschub → Kommissionier; Rücklagerung nur als Deslotting.</figcaption></figure>
+      <ol class="steps">
+        <li>Umlagerung anlegen: Artikel, Quelle, Ziel, Menge. Bereich (N/K) und Tags werden angezeigt.</li>
+        <li>Das System prüft die Regeln: Ziel-Tags müssen die Artikel-Anforderungen erfüllen; die Richtung muss zulässig sein.</li>
+        <li>Rücklagerung Kommissionier → Nachschub nur als <b>Deslotting</b>; der Mindestrestbestand bleibt erhalten.</li>
+        <li>Optional automatisch generieren („⚡ Auto generieren"): Nachschub für nachgefragte Artikel und Deslotting für Langsamdreher, optional mit fester Zuweisung.</li>
+        <li>Umlagerung zuweisen und ausführen (bucht eine TRANSFER-Bewegung).</li>
+      </ol>
+
+      <h2 id="op-pack">Packen &amp; Versand</h2>
+      <ol class="steps">
+        <li>Am Packplatz den fertig kommissionierten Auftrag packen (Sendung entsteht, Status READY_TO_SHIP).</li>
+        <li>Optional Versandtarife vergleichen (Rate-Shopping) und Carrier/Service wählen.</li>
+        <li>Label erzeugen und Sendung disponieren (Status SHIPPED). Sendungsverfolgung über Carrier + Trackingnummer.</li>
+      </ol>
+      <div class="todo"><b>[OFFEN:</b> Echte Carrier-Labels/Tracking (DHL/DPD/GLS) – aktuell Sandbox – <b>siehe TODO.md #TODO-01]</b></div>
+
+      <h2 id="op-returns">Retouren</h2>
+      <ol class="steps">
+        <li>Retoure anmelden (optional mit Bezug zum Auftrag) und erwartete Positionen erfassen.</li>
+        <li>Wareneingang der Retoure scannen; Menge je Position bestätigen.</li>
+        <li>Disposition wählen: Wiedereinlagern / Aufarbeiten / Quarantäne / Verschrotten.</li>
+        <li>Retoure abschließen – es entsteht ein Gutschrift-Ereignis für das ERP.</li>
+      </ol>
+
+      <h2 id="op-quality">Qualitätsprüfung</h2>
+      <p>Ein <b>Q-Halt</b> sperrt eine Menge Bestand (die Allokation überspringt gesperrten Bestand). Nach Prüfung
+        wird freigegeben (Bestand wieder verfügbar) oder abgelehnt (verschrottet).</p>
+
+      <h2 id="op-count">Inventur</h2>
+      <p>Zählungen werden erfasst und gebucht; Differenzen erzeugen revisionssichere Bestandskorrekturen und fließen
+        in die Bestandsgenauigkeit ein. Ein ABC-basierter Zählplan priorisiert, was als Nächstes zu zählen ist.</p>
+      <div class="todo"><b>[OFFEN:</b> Geführte Ausführung der zyklischen Inventur direkt aus dem Zählplan (Zuteilung an Zähler) – <b>siehe TODO.md #TODO-27]</b></div>
+    </main>
+  </div>
+  <script src="assets/app.js"></script>
+</body>
+</html>
