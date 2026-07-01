@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="100%" role="img" aria-label="Umlagerungs-Bereichsregel">
+  <style>
+    .area{stroke-width:2;rx:14}
+    .repl{fill:#EEF5FC;stroke:#4f9cf2}
+    .pick{fill:#FBF3E4;stroke:#D99322}
+    .h{font:700 16px system-ui,sans-serif;fill:#1F1F24}
+    .s{font:12px system-ui,sans-serif;fill:#6b665c}
+    .ok{stroke:#34b27b;stroke-width:3;fill:none;marker-end:url(#g)}
+    .no{stroke:#d9534f;stroke-width:3;fill:none;stroke-dasharray:7 5;marker-end:url(#r)}
+    .okl{font:700 13px system-ui,sans-serif;fill:#2f9e6f}
+    .nol{font:700 13px system-ui,sans-serif;fill:#c0392b}
+  </style>
+  <defs>
+    <marker id="g" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#34b27b"/></marker>
+    <marker id="r" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#d9534f"/></marker>
+  </defs>
+  <rect class="area repl" x="30"  y="70" width="250" height="150" rx="14"/>
+  <text class="h" x="55" y="105">Nachschubbereich</text><text class="s" x="55" y="126">areaKind = REPLENISHMENT</text><text class="s" x="55" y="146">Reservelager, Paletten</text>
+  <rect class="area pick" x="440" y="70" width="250" height="150" rx="14"/>
+  <text class="h" x="465" y="105">Kommissionierbereich</text><text class="s" x="465" y="126">areaKind = PICKING</text><text class="s" x="465" y="146">Pickfront, Fachbodenregal</text>
+
+  <path class="ok" d="M285 120 H435"/><text class="okl" x="300" y="110">Nachschub (Standard)</text>
+  <path class="no" d="M435 180 H285"/><text class="nol" x="300" y="205">Rücklagerung nur als DESLOT</text>
+  <text class="s" x="300" y="223">(Langsamdreher, Mindestrestbestand bleibt)</text>
+
+  <text class="s" x="30" y="260">Zusätzlich: Ziel-Tags müssen die Artikel-Anforderungen erfüllen (z. B. „Kühlung").</text>
+  <text class="s" x="30" y="280">Artikel können von automatischen Umlagerungen ausgeschlossen oder auf erlaubte Zonen beschränkt werden.</text>
+</svg>

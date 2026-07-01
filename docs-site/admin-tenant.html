@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Administration (Mandant) · AntHive</title>
+  <link rel="icon" href="assets/img/logo.svg">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="admin-tenant">
+  <header class="top">
+    <button class="hamb" id="hamb" aria-label="Menü">☰</button>
+    <a class="brand" href="index.html"><img src="assets/img/logo.svg" width="26" height="26" alt=""> Ant<b>Hive</b> · WMS-Doku</a>
+    <span class="spacer"></span>
+    <input class="search" id="search" placeholder="Navigation filtern…" aria-label="Suche">
+  </header>
+  <div class="layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main>
+      <h1>Administration WMS für Mandanten</h1>
+      <p class="lead">Für Mandanten-Administratoren: Konfiguration des eigenen Mandanten – Benutzer, Stammdaten,
+        Regeln und Abrechnung. Alle Daten sind strikt mandantengetrennt.</p>
+
+      <h2 id="at-users">Benutzer &amp; Rollen</h2>
+      <p>Unter <b>Verwaltung</b> lassen sich Benutzer anlegen, aktivieren/deaktivieren, Passwörter zurücksetzen
+        und Rollen zuweisen; Rollen bündeln Rechte.</p>
+      <ol class="steps">
+        <li>Rolle anlegen (z. B. „Kommissionierer") und passende Rechte (z. B. <code>picking.*</code>) zuweisen.</li>
+        <li>Benutzer anlegen (E-Mail, Anzeigename, Passwort) und Rolle(n) zuordnen.</li>
+        <li>Deaktivierte Benutzer können sich nicht mehr anmelden; die Historie bleibt erhalten.</li>
+      </ol>
+      <div class="callout">Änderungen an Benutzern/Rollen sind revisionssicher auditiert.</div>
+
+      <h2 id="at-keys">API-Keys</h2>
+      <p>Für Integrationen (z. B. ERP) werden API-Keys mit gezielten Rechten oder Wildcard <code>*</code> erzeugt.
+        Der Klartext wird <b>nur einmal</b> bei der Erstellung angezeigt und danach nur als Hash gespeichert.
+        Über einen API-Key erstellte Umlagerungen erhalten automatisch die Herkunft <code>API</code>.</p>
+
+      <h2 id="at-catalog">Artikel &amp; Bilder</h2>
+      <p>Artikelstammdaten werden im Bereich <b>Artikel</b> gepflegt. Je Artikel können <b>Bilder</b> hinterlegt
+        werden – aus dem ERP, über eine externe API oder manuell (Bild-URL bzw. Inline-<code>data:</code>-URL).
+        Ein Bild ist Primärbild und erscheint u. a. im Scanner beim Kommissionieren.</p>
+      <p>Zusätzlich werden je Artikel die <b>Umlagerungs-Regeln</b> gepflegt:</p>
+      <table>
+        <thead><tr><th>Feld</th><th>Wirkung</th></tr></thead>
+        <tbody>
+          <tr><td>Anforderungs-Tags</td><td>Der Artikel darf nur auf Lagerplätze umgelagert werden, deren Tags diese Anforderungen erfüllen (z. B. „Kühlung").</td></tr>
+          <tr><td>Von Auto-Umlagerung ausschließen</td><td>Der Artikel wird bei der automatischen Generierung ignoriert.</td></tr>
+          <tr><td>Mindestrestbestand (Kommissionierbereich)</td><td>Beim Deslotting bleibt mindestens diese Menge im Kommissionierbereich.</td></tr>
+          <tr><td>Erlaubte Zielbereiche</td><td>Beschränkt automatische Umlagerungen auf bestimmte Zonen.</td></tr>
+        </tbody>
+      </table>
+      <div class="todo"><b>[OFFEN:</b> Bild-Upload für Binärdateien (Objektspeicher) – aktuell nur URL/Data-URL – <b>siehe TODO.md #TODO-21]</b></div>
+      <div class="todo"><b>[OFFEN:</b> UI-Auswahl „erlaubte Zielbereiche" im Artikel-Editor (Backend/Auto bereits umgesetzt) – <b>siehe TODO.md #TODO-20]</b></div>
+
+      <h2 id="at-locations">Lagerplätze &amp; Bereiche</h2>
+      <p>Im Bereich <b>Lager &amp; Plätze</b> wird je Lagerplatz der <b>Bereich</b> gesetzt
+        (Kommissionier-/Nachschubbereich) und die <b>Fähigkeits-Tags</b> gepflegt. Diese Angaben steuern die
+        Umlagerungsregeln (siehe <a href="operator.html#op-transfer">Operativ → Umlagerung</a>).</p>
+
+      <h2 id="at-tags">Tags</h2>
+      <p>Der zentrale Tag-Katalog wird unter <b>Einstellungen</b> gepflegt. Tags haben einen Gültigkeitsbereich
+        (nur Artikel, nur Plätze oder beides), z. B. „Kühlung", „Sackware", „Gefahrgut". Anschließend werden sie
+        an Artikeln (als Anforderung) und Lagerplätzen (als Fähigkeit) zugewiesen.</p>
+
+      <h2 id="at-billing">Abrechnung (3PL)</h2>
+      <p>Unter <b>Abrechnung</b> werden Tarife (Rate Card) je Leistung gepflegt (z. B. je Pick, je Wareneingangs-Position,
+        je Sendung, je Einheit·Tag Lagerung). Für einen Zeitraum wird die Nutzung aus den Betriebsdaten gemessen,
+        eine Vorschau erstellt und daraus eine Rechnung mit fixiertem Leistungs-/Preis-Snapshot erzeugt.</p>
+      <div class="todo"><b>[OFFEN:</b> PDF/E-Rechnungs-Export, read-only Kundenportal, exakte (nicht geschätzte) Lagergeld-Messung – <b>siehe TODO.md #TODO-28]</b></div>
+      <div class="todo"><b>[OFFEN:</b> Anlegen/Verwalten weiterer Mandanten/Standorte im UI (aktuell per Seed) – <b>siehe TODO.md #TODO-42]</b></div>
+    </main>
+  </div>
+  <script src="assets/app.js"></script>
+</body>
+</html>
